@@ -1,0 +1,116 @@
+<head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+  <link rel="stylesheet"
+    href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+    integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css"
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
+  <link rel="stylesgeet" href="https://rawgit.com/creativetimofficial/material-kit/master/assets/css/material-kit.css">
+</head>
+
+<body class="profile-page">
+  <nav class="navbar navbar-color-on-scroll navbar-transparent fixed-top navbar-expand-lg " color-on-scroll="100"
+    id="sectionsNav">
+    <div class="container">
+      <div class="navbar-translate">
+        <a class="navbar-brand" href="https://demos.creative-tim.com/material-kit/index.html" target="_blank">Material
+          Kit </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+          <!-- <li class="dropdown nav-item">
+            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+              <i class="material-icons">apps</i> Components
+            </a>
+            <div class="dropdown-menu dropdown-with-icons">
+              <a href="../index.html" class="dropdown-item">
+                <i class="material-icons">layers</i> All Components
+              </a>
+
+              <a href="https://demos.creative-tim.com/material-kit/docs/2.0/getting-started/introduction.html"
+                class="dropdown-item">
+                <i class="material-icons">content_paste</i> Documentation
+              </a>
+            </div>
+          </li> -->
+          <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+            <a class="nav-link" [routerLink]="['/profile']">
+              <i class="material-icons">apps</i> Profile
+            </a>
+          </li>
+          <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" (click)="logoutUser()">
+              <i class="material-icons">cloud_download</i> Log Out
+            </a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="https://twitter.com/CreativeTim" target="_blank">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.facebook.com/CreativeTim" target="_blank">
+              <i class="fa fa-facebook-square"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.instagram.com/CreativeTimOfficial" target="_blank">
+              <i class="fa fa-instagram"></i>
+            </a>
+          </li> -->
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-header header-filter" data-parallax="true"
+    style="background-image:url('http://wallpapere.org/wp-content/uploads/2012/02/black-and-white-city-night.png');">
+  </div>
+  <div class="main main-raised">
+    <div class="profile-content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 ml-auto mr-auto">
+            <div class="profile">
+              <div class="avatar" (mouseenter)="showUploadButton = !showUploadButton"
+                (mouseleave)="showUploadButton = !showUploadButton">
+                <!-- <div class="upload-btn-wrapper" *ngIf="showUploadButton" > -->
+                <div class="upload-btn-wrapper">
+                  <input type="file" name="avatar" accept="image/*" (change)="onFileChange($event)" />
+                </div>
+                <img [src]="userProfile.data.profileURL" alt="Circle Image" class="img-raised rounded-circle img-fluid">
+              </div>
+              <div class="name">
+                <h3 class="title">{{userProfile.data.name}}</h3>
+                <h4>{{userProfile.data.mobile}}</h4>
+                <h4>{{userProfile.data.email}}</h4>
+                <h4>{{userProfile.data.city}}</h4>
+                <h4>{{userProfile.data.dob}}</h4>
+                <h4>{{userProfile.data.age}}</h4>
+                <button class="btn btn-warning btn-lg" (click)="showComponent('editProfile')">Edit Profile</button>
+                <button class="btn btn-warning btn-lg" (click)="showComponent('updateProfile')">Change Password</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card col margin-top" *ngIf="showProfile">
+      <app-edit-profile [userData]="userProfile" (profileUpdated)="profileUpdateHandler($event)">
+      </app-edit-profile>
+    </div>
+    <div class="card col margin-top" *ngIf="showPasswordComponent">
+      <app-update-password [usedId]="userProfile.data.Id"></app-update-password>
+    </div>
+
+  </div>
+</body>
