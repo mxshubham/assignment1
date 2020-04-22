@@ -10,7 +10,6 @@ export class ProfileComponent implements OnInit {
   public userProfile;
   public showProfile = false;
   public showPasswordComponent = false;
-  showUploadButton = false;
   constructor(private http: HttpService, private routing: Router) { 
     if (!localStorage.getItem('userData')) {
       this.routing.navigate(['login']);
@@ -42,21 +41,4 @@ export class ProfileComponent implements OnInit {
     console.log('.....');
     console.log(this.userProfile);
   }
-
-  onFileChange(evt:any) {
-    console.log('-file--',evt.target.files);
-    if (evt.target.files.length > 0) {
-      const formData = new FormData();
-      formData.append('avatar', evt.target.files[0])
-      this.http.uploadAvatar(formData, this.userProfile.data.Id).subscribe((response: any) => {
-        if (response.code) {
-          this.userProfile.data.profileURL = response.data.profileURL;
-          window.localStorage.setItem("userData", JSON.stringify(this.userProfile));
-        }
-      }, (err) => {
-        console.log("Error", err);
-      });
-    }
-  }
-
 }

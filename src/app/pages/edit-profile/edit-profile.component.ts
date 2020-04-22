@@ -56,5 +56,21 @@ export class EditProfileComponent implements OnInit {
       console.log('Error', err);
     });
   }
+
+  onFileChange(evt:any) {
+    console.log('-file--',evt.target.files);
+    if (evt.target.files.length > 0) {
+      const formData = new FormData();
+      formData.append('avatar', evt.target.files[0])
+      this.httpService.uploadAvatar(formData, this.userData.data.Id).subscribe((response: any) => {
+        if (response.code) {
+          this.userData.data.profileURL = response.data.profileURL;
+          window.localStorage.setItem("userData", JSON.stringify(this.userData));
+        }
+      }, (err) => {
+        console.log("Error", err);
+      });
+    }
+  }
   
 }
